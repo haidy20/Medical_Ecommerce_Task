@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('product_logs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
+
             $table->string('action'); // created, updated, deleted
             $table->unsignedBigInteger('changed_by'); // admin id
             $table->json('changes')->nullable(); // old vs new

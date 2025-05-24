@@ -9,16 +9,23 @@ use App\Models\Category;
 
 class HomeController extends Controller
 {
-    
+    public function index()
+    {
+        // ممكن تعرض هنا تصنيفات أو منتجات مميزة مثلاً
+        $products = Product::all();  // تجيب كل المنتجات
+        return view('customer.home', compact('products'));
+    }
+
+
     public function categories()
     {
         $categories = Category::all();
-        return view('frontend.categories', compact('categories'));
+        return view('customer.categories', compact('categories'));
     }
 
     public function productsByCategory(Category $category)
     {
         $products = $category->products()->latest()->paginate(12); // Assuming relationship exists
-        return view('frontend.products', compact('category', 'products'));
+        return view('customer.products', compact('category', 'products'));
     }
 }

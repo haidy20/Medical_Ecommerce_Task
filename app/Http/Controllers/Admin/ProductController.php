@@ -12,11 +12,27 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     // Show all products
-    public function index()
-    {
-        $products = Product::with('category')->latest()->paginate(10);
-        return view('admin.products.index', compact('products'));
+public function index(Request $request)
+{
+    $search = $request->input('search');
+
+    $productsQuery = Product::with('category')->latest();
+
+    if ($search) {
+        $productsQuery->where(function($query) use ($search) {
+            $query->where('name', 'like', '%' . $search . '%')
+                  ->orWhere('price', 'like', '%' . $search . '%')
+                  ->orWhereHas('category', function($q) use ($search) {
+                      $q->where('name', 'like', '%' . $search . '%');
+                  });
+        });
     }
+
+    $products = $productsQuery->paginate(25);
+
+    return view('admin.products.index', compact('products', 'search'));
+}
+
 
     // Show create form
     public function create()

@@ -2,11 +2,13 @@
 
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Admin Panel - @yield('title', 'Dashboard')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light px-5 shadow-sm">
         <a class="navbar-brand fw-bold" href="#">Admin Dashboard</a>
@@ -24,6 +26,14 @@
                 <li class="nav-item">
                     <a href="{{ route('profile.edit') }}" class="nav-link {{ request()->routeIs('profile.*') ? 'active fw-bold' : '' }}">Profile</a>
                 </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.orders.index') }}" class="nav-link {{ request()->routeIs('admin.orders.*') ? 'active fw-bold' : '' }}">
+                        <i class="fas fa-shopping-cart"></i> Orders
+                    </a>
+                </li>
+
+
             </ul>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
@@ -38,4 +48,5 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

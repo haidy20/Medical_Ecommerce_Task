@@ -12,13 +12,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(AdminUserSeeder::class);
+        // $this->call(AdminUserSeeder::class);
+
+        // ننشئ 10 تصنيفات (Categories)
+        \App\Models\Category::factory(10)->create();
+
+        // ننشئ 50 منتج مرتبط بتصنيفات موجودة
+        \App\Models\Product::factory(10)->create();
         // هنا ممكن تضيفي سييدرز أخرى مثل ProductSeeder، CategorySeeder ...
         // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
     }
 }
